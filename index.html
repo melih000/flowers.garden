@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medine'nin Bahçesi - 3D Çiçek İnceleme</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #090d16, #111026, #1d0b27);
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            perspective: 1500px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(9, 13, 22, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, #f472b6, #e11d48);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(244, 114, 182, 0.2);
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 220px 0 120px 0;
+        }
+
+        /* Çiçek Kartı Yapısı */
+        .flower-section {
+            position: relative;
+            width: 450px;
+            height: 550px;
+            margin: 60px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.8s ease;
+            opacity: 0;
+            transform: translateY(100px) rotateX(20deg) scale(0.85);
+            cursor: grab;
+        }
+
+        .flower-section:active {
+            cursor: grabbing;
+        }
+
+        .flower-section.visible {
+            opacity: 1;
+            transform: translateY(0) rotateX(0) scale(1);
+        }
+
+        /* Döndürülecek İç Kutu */
+        .flower-rotator {
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Çiçek Görselleri */
+        .flower-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.7));
+            pointer-events: none;
+            transform: translateZ(60px);
+        }
+
+        /* Başlıklar */
+        .flower-title {
+            font-size: 2.3rem;
+            font-weight: 600;
+            margin-top: 30px;
+            letter-spacing: 1px;
+            color: #f1f5f9;
+            transform: translateZ(40px);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+        }
+
+        .control-hint {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 8px;
+            transform: translateZ(30px);
+            opacity: 0.8;
+        }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            color: #475569;
+            letter-spacing: 1px;
+            animation: float 2s infinite ease-in-out;
+            z-index: 50;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -8px); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Medine'nin Bahçesi</h1>
+        <p>Çiçeklere tıklayıp sürükleyerek 360 derece bağımsız inceleyebilirsiniz</p>
+    </header>
+
+    <div class="container">
+        <div class="flower-section">
+            <div class="flower-rotator">
+                <img src="resimler/lilyum.png" alt="Lilyum Resmi" class="flower-img">
+            </div>
+            <div class="flower-title">Lilyum</div>
+            <div class="control-hint">🔄 Döndürmek için sürükle</div>
+        </div>
+
+        <div class="flower-section">
+            <div class="flower-rotator">
+                <img src="resimler/papatya.png" alt="Papatya Resmi" class="flower-img">
+            </div>
+            <div class="flower-title">Papatya</div>
+            <div class="control-hint">🔄 Döndürmek için sürükle</div>
+        </div>
+
+        <div class="flower-section">
+            <div class="flower-rotator">
+                <img src="resimler/gul.png" alt="Gül Resmi" class="flower-img">
+            </div>
+            <div class="flower-title">Gül</div>
+            <div class="control-hint">🔄 Döndürmek için sürükle</div>
+        </div>
+
+        <div class="flower-section">
+            <div class="flower-rotator">
+                <img src="resimler/lale.png" alt="Lale Resmi" class="flower-img">
+            </div>
+            <div class="flower-title">Lale</div>
+            <div class="control-hint">🔄 Döndürmek için sürükle</div>
+        </div>
+
+        <div class="flower-section">
+            <div class="flower-rotator">
+                <img src="resimler/nergis.png" alt="Nergis Resmi" class="flower-img">
+            </div>
+            <div class="flower-title">Nergis</div>
+            <div class="control-hint">🔄 Döndürmek için sürükle</div>
+        </div>
+    </div>
+
+    <div class="scroll-hint">DİĞER ÇİÇEKLER İÇİN KAYDIRIN ⬇</div>
+
+    <script>
+        // Kaydırma animasyonu
+        const sections = document.querySelectorAll('.flower-section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { root: null, threshold: 0.15 });
+        sections.forEach(section => observer.observe(section));
+
+        // 360 Derece Sürükleme Mekanizması
+        sections.forEach(section => {
+            const rotator = section.querySelector('.flower-rotator');
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+            let currentRotation = { x: 0, y: 0 };
+
+            function startDrag(e) {
+                isDragging = true;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                previousMousePosition = { x: clientX, y: clientY };
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+                const deltaX = clientX - previousMousePosition.x;
+                const deltaY = clientY - previousMousePosition.y;
+
+                currentRotation.y += deltaX * 0.6;
+                currentRotation.x -= deltaY * 0.6;
+                currentRotation.x = Math.max(-50, Math.min(50, currentRotation.x));
+
+                rotator.style.transform = `rotateY(${currentRotation.y}deg) rotateX(${currentRotation.x}deg)`;
+                previousMousePosition = { x: clientX, y: clientY };
+            }
+
+            function endDrag() {
+                isDragging = false;
+            }
+
+            section.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', (e) => { if(isDragging) drag(e); });
+            window.addEventListener('mouseup', endDrag);
+
+            section.addEventListener('touchstart', startDrag, { passive: true });
+            window.addEventListener('touchmove', (e) => { if(isDragging) drag(e); }, { passive: true });
+            section.addEventListener('touchend', endDrag);
+        });
+    </script>
+</body>
+</html>
