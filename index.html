@@ -79,6 +79,14 @@
             cursor: grab;
         }
 
+        /* MEDİNE KARTI İÇİN ÖZEL PARLAMA (VIP CARD) */
+        .flower-section.special-card {
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            background: linear-gradient(135deg, rgba(244, 114, 182, 0.03), rgba(225, 29, 72, 0.03));
+            box-shadow: 0 25px 50px rgba(244, 114, 182, 0.15);
+            height: 600px; /* Yazı için bir tık daha uzun */
+        }
+
         .flower-section:active {
             cursor: grabbing;
         }
@@ -99,7 +107,7 @@
             transition: transform 0.1s ease-out;
         }
 
-        /* Çiçek Görselleri */
+        /* Çiçek ve Medine'nin Görseli */
         .flower-img {
             max-width: 100%;
             max-height: 100%;
@@ -107,6 +115,16 @@
             filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.7));
             pointer-events: none;
             transform: translateZ(60px);
+        }
+
+        /* Medine'nin Fotoğrafı İçin Yuvarlak/Şık Kesim */
+        .special-card .flower-img {
+            border-radius: 50%;
+            border: 4px solid rgba(244, 114, 182, 0.4);
+            object-fit: cover;
+            width: 240px;
+            height: 240px;
+            box-shadow: 0 0 30px rgba(244, 114, 182, 0.3);
         }
 
         /* Başlıklar */
@@ -118,6 +136,29 @@
             color: #f1f5f9;
             transform: translateZ(40px);
             text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+        }
+
+        .special-title {
+            background: linear-gradient(to right, #fff, #f472b6, #ff1493);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Romantik Bilgi Kutusu */
+        .romantic-note {
+            width: 85%;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(9, 13, 22, 0.8);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #f1f5f9;
+            text-align: center;
+            font-style: italic;
+            transform: translateZ(50px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
 
         .control-hint {
@@ -193,6 +234,25 @@
             <div class="flower-title">Nergis</div>
             <div class="control-hint">🔄 Döndürmek için sürükle</div>
         </div>
+
+        <div class="flower-section">
+            <div class="flower-rotator">
+                <img src="resimler/lavanta.png" alt="Lavanta Resmi" class="flower-img">
+            </div>
+            <div class="flower-title">Lavanta</div>
+            <div class="control-hint">🔄 Döndürmek için sürükle</div>
+        </div>
+
+        <div class="flower-section special-card">
+            <div class="flower-rotator">
+                <img src="resimler/medine.png" alt="Medine" class="flower-img">
+            </div>
+            <div class="flower-title special-title">Medine</div>
+            <div class="romantic-note">
+                "Bu bahçedeki tüm çiçekler kendi zarafetini anlatır ama hiçbiri senin tek bir gülüşün etmez. Benim ve bu bahçenin en özel, en nadide, ömürlük çiçeği sensin..."
+            </div>
+            <div class="control-hint">💖 Sonsuza dek döndürmek için sürükle</div>
+        </div>
     </div>
 
     <div class="scroll-hint">DİĞER ÇİÇEKLER İÇİN KAYDIRIN ⬇</div>
@@ -206,7 +266,7 @@
                     entry.target.classList.add('visible');
                 }
             });
-        }, { root: null, threshold: 0.15 });
+        }, { root: null, threshold: 0.1 });
         sections.forEach(section => observer.observe(section));
 
         // 360 Derece Sürükleme Mekanizması
